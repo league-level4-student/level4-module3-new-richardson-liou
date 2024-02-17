@@ -31,7 +31,15 @@ public class LinkedListDemo {
          * String nodes.
          * 
          */
-
+    	LinkedList<String> listlink = new LinkedList<>();
+    	listlink.add("Hi");
+    	listlink.add("Bye");
+    	listlink.add("ok");
+    	listlink.print();
+    	listlink.remove(0);
+    	listlink.remove(1);
+    	listlink.print();
+    
     }
 
 }
