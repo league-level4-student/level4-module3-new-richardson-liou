@@ -32,14 +32,22 @@ public class LinkedListDemo {
          * 
          */
     	LinkedList<String> listlink = new LinkedList<>();
-    	listlink.add("Hi");
-    	listlink.add("Bye");
+    	listlink.add("hi");
+    	listlink.add("bye");
     	listlink.add("ok");
     	listlink.print();
-    	listlink.remove(0);
-    	listlink.remove(1);
+
     	listlink.print();
     
+    	Node head = listlink.getHead();
+    	Node tail = listlink.getTail();
+    	
+    	while (head != null) {
+
+            head.setValue(head.getValue().toString().toUpperCase());
+            head = head.getNext();
+            listlink.print();
+        }
     }
 
 }

@@ -22,9 +22,43 @@ public class SpiesOnATrain {
      * statements.
      */
     String findIntel(LinkedList<TrainCar> train, String[] clues) {
+        String mostLikelySuspect = null;
+        int maxMatches = 0;
+        Node<TrainCar> head = train.getHead();
+        
+        HashMap<String, Integer> names = new HashMap<String,Integer>();
 
-        return "";
+        while (head != null) {
+        	TrainCar current = head.getValue();
+        	System.out.println(current);
+        	names.put(current.toString(), 0);
+        	
+            String passengerStatement = current.questionPassenger();
+            passengerStatement.split(" ");
+            passengerStatement = passengerStatement.replace(".", "");
+            
+            
+            System.out.println(passengerStatement);
+            int matches = 0;
 
+            for (String clue : clues) {
+                if (passengerStatement.contains(clue)) {
+                    matches++;
+                }
+            }
+
+            if (matches > maxMatches) {
+                maxMatches = matches;
+                mostLikelySuspect = head.toString();
+            }
+            head = head.getNext();
+        }
+
+        return mostLikelySuspect;
     }
 
-}
+
+	  
+	}
+
+
