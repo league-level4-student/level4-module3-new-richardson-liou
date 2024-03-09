@@ -1,6 +1,9 @@
 package _01_Spies_On_A_Train;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 import _00_Intro_to_Linked_Lists.LinkedList;
 import _00_Intro_to_Linked_Lists.Node;
@@ -30,35 +33,48 @@ public class SpiesOnATrain {
 
         while (head != null) {
         	TrainCar current = head.getValue();
-        	System.out.println(current);
-        	names.put(current.toString(), 0);
         	
             String passengerStatement = current.questionPassenger();
-            passengerStatement.split(" ");
+            String[] statement = passengerStatement.split(" ");
+            List<String> state = Arrays.asList(statement);
             passengerStatement = passengerStatement.replace(".", "");
-            
-            
             System.out.println(passengerStatement);
+            
+            
             int matches = 0;
-
-            for (String clue : clues) {
-                if (passengerStatement.contains(clue)) {
-                    matches++;
-                }
+            
+            for(String clue : clues) {
+            	if(passengerStatement.endsWith(clue)) {
+		           int index = state.indexOf("saw");
+		           String name = state.get(index+1);
+		           if(names.get(name) != null) {
+		        	   names.put(name, names.get(name)+1);
+		           }
+		           else {
+		        	   names.put(name, 1);
+		           }
+            	}
             }
-
-            if (matches > maxMatches) {
-                maxMatches = matches;
-                mostLikelySuspect = head.toString();
-            }
+           
             head = head.getNext();
         }
+     
+        
+        for(Entry e : names.entrySet()) {
+        	int val = (int) e.getValue();
+        	if(val > maxMatches) {
+        		maxMatches = val;
+        		mostLikelySuspect = (String) e.getKey();
+        	}
+        	
+        	
+        	
+        }
+        
+        
 
         return mostLikelySuspect;
     }
-
-
-	  
-	}
-
-
+    
+   
+}
