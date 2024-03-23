@@ -1,6 +1,9 @@
 package _04_Morse_Code;
 
+import java.util.Scanner;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
+import _03_Intro_to_Binary_Trees.Node;
 
 public class MorseDecoder {
 
@@ -10,7 +13,23 @@ public class MorseDecoder {
 
         MorseDecoder md = new MorseDecoder();
         md.initialize();
-        md.decode();
+        //md.decode();
+        
+        Scanner s = new Scanner(System.in);
+        System.out.println("this is a morse code translator (type 'END' to stop)");
+        
+        
+        while(true) {
+        	System.out.println("enter something in morse code:");
+        	String inputMorse = s.nextLine();
+        	
+        	if(inputMorse.equals("END")) {
+        		break;
+        	}
+        
+        	System.out.println("this is what you wrote: " + md.decode(inputMorse));
+        }
+        
 
     }
 
@@ -48,6 +67,7 @@ public class MorseDecoder {
         mcTree.insert(new MorseCode("q", "--.-"));
 
         mcTree.printVertical();
+        
 
     }
 
@@ -63,8 +83,34 @@ public class MorseDecoder {
      * english alphabet.
      * 
      */
-    void decode() {
-        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+    String decode(String morseCode) {
+        //String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
+        
+        String[] morseCodeLetters = morseCode.split(" ");
+        
+        String decodedMessage = "";
+        
+
+        for(int i = 0; i < morseCodeLetters.length; i++) {
+        	decodedMessage += decodeLetters(morseCodeLetters[i]);
+        
+        	
+        }
+        
+        return decodedMessage;
+
     }
+    
+    
+    String decodeLetters(String morseLetter) {
+    	String decodedLetter = "";
+    	
+    	Node<MorseCode> m = mcTree.search(new MorseCode(morseLetter));
+    	decodedLetter += m.getValue();
+    	
+    	return decodedLetter;
+    }
+    
+   
 
 }

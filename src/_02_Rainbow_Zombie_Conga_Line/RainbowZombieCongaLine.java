@@ -34,15 +34,17 @@ public class RainbowZombieCongaLine {
     // Make the passed in zombie the first Zombie in the conga line!
     public void engine(Zombie dancer) {
     	congaLine.add(dancer);
-    	Node current = congaLine.getTail();
-    	congaLine.setHead(current);
+    	
     	System.out.println(congaLine);
     }
     
     // Make the passed in zombie the last Zombie in the conga line!
     public void caboose(Zombie dancer) {
-    	congaLine.add(dancer);
-    	System.out.println(congaLine);
+    	Node<Zombie> current = congaLine.getHead();
+        while (current.getNext() != null) {
+            current = current.getNext();
+        }
+        current.setNext(new Node<>(dancer));
     }
 
     // Place the zombie at the designated position in the conga line!
@@ -68,14 +70,16 @@ public class RainbowZombieCongaLine {
      * the conga line!
      */
     public void everyoneOut(Zombie dancer) {
-    	ZombieHatColor color = dancer.getZombieHatColor();
+    	ZombieHatColor dancerHatColor = dancer.getZombieHatColor();
     	Node<Zombie> current = congaLine.getHead();
-    	
-    	for(int i = 0; i<congaLine.size(); i++) {
-    		if(current.getValue().getZombieHatColor() == color) {
-    			congaLine.remove(i);
+    	for(int i = 0; i < congaLine.size(); i++) {
+    		if(dancerHatColor == current.getValue().getZombieHatColor()) {
+    			current.getPrev().setNext(current.getNext());
     		}
-    		current.getNext();
+    		
+    		current = current.getNext();
+    		
+    	
     	}
     }
 
@@ -84,15 +88,15 @@ public class RainbowZombieCongaLine {
      * from the conga line!
      */
     public void youAreDone(Zombie dancer) {
-    	ZombieHatColor color = dancer.getZombieHatColor();
+    	ZombieHatColor dancerHatColor = dancer.getZombieHatColor();
     	Node<Zombie> current = congaLine.getHead();
-    	
-    	for(int i = 0; i<congaLine.size(); i++) {
-    		if(current.getValue().getZombieHatColor() == color) {
-    			congaLine.remove(i);
-    			break;
+    	for(int i = 0; i < congaLine.size(); i++) {
+    		if(current.getValue().getZombieHatColor() == dancerHatColor) {	
+    			current.getPrev().setNext(current.getNext());
+    			return;
     		}
-    		current.getNext();
+    		
+    		current = current.getNext();
     	}
 
     }
@@ -105,6 +109,17 @@ public class RainbowZombieCongaLine {
     	ZombieHatColor color = dancer.getZombieHatColor();
     	Zombie new1 = new Zombie(color);
     	Zombie new2 = new Zombie(color);
+    	congaLine.add(new1);
+    	Node current = congaLine.getTail();
+    	congaLine.setHead(current);
+    	
+        int middlePosition = congaLine.size() / 2;
+        
+        jumpInTheLine(new2, middlePosition);
+        
+        congaLine.add(new Zombie(color));
+        
+        System.out.println(congaLine);
     	
     }
 

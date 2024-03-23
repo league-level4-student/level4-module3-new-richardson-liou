@@ -1,5 +1,7 @@
 package _03_Intro_to_Binary_Trees;
 
+import java.util.Random;
+
 public class BinaryTreeDemo {
 
     /*
@@ -33,7 +35,47 @@ public class BinaryTreeDemo {
      */
 
     public static void main(String[] args) {
+    	BinaryTree<Integer> tree = new BinaryTree<Integer>();
+    	tree.insert(15);
+    	tree.insert(10);
+    	tree.insert(15);
+    	tree.insert(3);
+    	tree.insert(7);
+    	tree.insert(12);
+    	tree.insert(18);
+    	
+    	
+    	
+    	tree.printHorizontal();
+    	tree.printVertical();
+    	
+    	Node<Integer> searchedNode = tree.search(7);
+    	
+    	if(searchedNode == null) {
+    		System.out.println("7 not found");
+    	}
+    	
+    	tree.delete(18);
+    	tree.printVertical();
+    	
+    	Node<Integer> root = tree.getRoot();
+    	traverseAndPrint(root);
+    	
+    	tree.printVertical();
 
     }
+    
+    public static void traverseAndPrint(Node<Integer> n) {
+    	
+    	if(n != null) {
+    		n.setValue(n.getValue()*n.getValue());
+    		System.out.println(n.getValue());
+    		traverseAndPrint(n.getLeft());
+    		traverseAndPrint(n.getRight());
+    		
+    	}
+    	
+    }
+    }
 
-}
+
